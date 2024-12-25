@@ -41,59 +41,7 @@ Also, [click here to browse the advanced features.](https://github.com/lllyasvie
 
 # Download
 
-### Windows
-
-You can directly download Fooocus with:
-
-**[>>> Click here to download <<<](https://github.com/lllyasviel/Fooocus/releases/download/v2.5.0/Fooocus_win64_2-5-0.7z)**
-
-After you download the file, please uncompress it and then run the "run.bat".
-
-![image](https://github.com/lllyasviel/Fooocus/assets/19834515/c49269c4-c274-4893-b368-047c401cc58c)
-
-The first time you launch the software, it will automatically download models:
-
-1. It will download [default models](#models) to the folder "Fooocus\models\checkpoints" given different presets. You can download them in advance if you do not want automatic download.
-2. Note that if you use inpaint, at the first time you inpaint an image, it will download [Fooocus's own inpaint control model from here](https://huggingface.co/lllyasviel/fooocus_inpaint/resolve/main/inpaint_v26.fooocus.patch) as the file "Fooocus\models\inpaint\inpaint_v26.fooocus.patch" (the size of this file is 1.28GB).
-
-After Fooocus 2.1.60, you will also have `run_anime.bat` and `run_realistic.bat`. They are different model presets (and require different models, but they will be automatically downloaded). [Check here for more details](https://github.com/lllyasviel/Fooocus/discussions/679).
-
-After Fooocus 2.3.0 you can also switch presets directly in the browser. Keep in mind to add these arguments if you want to change the default behavior:
-* Use `--disable-preset-selection` to disable preset selection in the browser.
-* Use `--always-download-new-model` to download missing models on preset switch. Default is fallback to `previous_default_models` defined in the corresponding preset, also see terminal output.
-
-![image](https://github.com/lllyasviel/Fooocus/assets/19834515/d386f817-4bd7-490c-ad89-c1e228c23447)
-
-If you already have these files, you can copy them to the above locations to speed up installation.
-
-Note that if you see **"MetadataIncompleteBuffer" or "PytorchStreamReader"**, then your model files are corrupted. Please download models again.
-
-Below is a test on a relatively low-end laptop with **16GB System RAM** and **6GB VRAM** (Nvidia 3060 laptop). The speed on this machine is about 1.35 seconds per iteration. Pretty impressive – nowadays laptops with 3060 are usually at very acceptable price.
-
-![image](https://github.com/lllyasviel/Fooocus/assets/19834515/938737a5-b105-4f19-b051-81356cb7c495)
-
-Besides, recently many other software report that Nvidia driver above 532 is sometimes 10x slower than Nvidia driver 531. If your generation time is very long, consider download [Nvidia Driver 531 Laptop](https://www.nvidia.com/download/driverResults.aspx/199991/en-us/) or [Nvidia Driver 531 Desktop](https://www.nvidia.com/download/driverResults.aspx/199990/en-us/).
-
-Note that the minimal requirement is **4GB Nvidia GPU memory (4GB VRAM)** and **8GB system memory (8GB RAM)**. This requires using Microsoft’s Virtual Swap technique, which is automatically enabled by your Windows installation in most cases, so you often do not need to do anything about it. However, if you are not sure, or if you manually turned it off (would anyone really do that?), or **if you see any "RuntimeError: CPUAllocator"**, you can enable it here:
-
-<details>
-<summary>Click here to see the image instructions. </summary>
-
-![image](https://github.com/lllyasviel/Fooocus/assets/19834515/2a06b130-fe9b-4504-94f1-2763be4476e9)
-
-**And make sure that you have at least 40GB free space on each drive if you still see "RuntimeError: CPUAllocator" !**
-
-</details>
-
-Please open an issue if you use similar devices but still cannot achieve acceptable performances.
-
-Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
-
-See also the common problems and troubleshoots [here](troubleshoot.md).
-
 ### Colab
-
-(Last tested - 2024 Aug 12 by [mashb1t](https://github.com/mashb1t))
 
 | Colab | Info
 | --- | --- |
@@ -153,24 +101,6 @@ Or, if you want to open a remote port, use
 
 Use `python entry_with_update.py --preset anime` or `python entry_with_update.py --preset realistic` for Fooocus Anime/Realistic Edition.
 
-### Linux (Using native system Python)
-
-If you know what you are doing, and your Linux already has **Python 3.10** installed, and your Python can be called with the command **python3** (and Pip with **pip3**), you can
-
-    git clone https://github.com/lllyasviel/Fooocus.git
-    cd Fooocus
-    pip3 install -r requirements_versions.txt
-
-See the above sections for model downloads. You can launch the software with:
-
-    python3 entry_with_update.py
-
-Or, if you want to open a remote port, use
-
-    python3 entry_with_update.py --listen
-
-Use `python entry_with_update.py --preset anime` or `python entry_with_update.py --preset realistic` for Fooocus Anime/Realistic Edition.
-
 ### Linux (AMD GPUs)
 
 Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
@@ -184,48 +114,9 @@ AMD is not intensively tested, however. The AMD support is in beta.
 
 Use `python entry_with_update.py --preset anime` or `python entry_with_update.py --preset realistic` for Fooocus Anime/Realistic Edition.
 
-### Windows (AMD GPUs)
-
-Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
-
-Same with Windows. Download the software and edit the content of `run.bat` as:
-
-    .\python_embeded\python.exe -m pip uninstall torch torchvision torchaudio torchtext functorch xformers -y
-    .\python_embeded\python.exe -m pip install torch-directml
-    .\python_embeded\python.exe -s Fooocus\entry_with_update.py --directml
-    pause
-
-Then run the `run.bat`.
-
-AMD is not intensively tested, however. The AMD support is in beta.
-
-For AMD, use `.\python_embeded\python.exe entry_with_update.py --directml --preset anime` or `.\python_embeded\python.exe entry_with_update.py --directml --preset realistic` for Fooocus Anime/Realistic Edition.
-
-### Mac
-
-Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
-
-Mac is not intensively tested. Below is an unofficial guideline for using Mac. You can discuss problems [here](https://github.com/lllyasviel/Fooocus/pull/129).
-
-You can install Fooocus on Apple Mac silicon (M1 or M2) with macOS 'Catalina' or a newer version. Fooocus runs on Apple silicon computers via [PyTorch](https://pytorch.org/get-started/locally/) MPS device acceleration. Mac Silicon computers don't come with a dedicated graphics card, resulting in significantly longer image processing times compared to computers with dedicated graphics cards.
-
-1. Install the conda package manager and pytorch nightly. Read the [Accelerated PyTorch training on Mac](https://developer.apple.com/metal/pytorch/) Apple Developer guide for instructions. Make sure pytorch recognizes your MPS device.
-1. Open the macOS Terminal app and clone this repository with `git clone https://github.com/lllyasviel/Fooocus.git`.
-1. Change to the new Fooocus directory, `cd Fooocus`.
-1. Create a new conda environment, `conda env create -f environment.yaml`.
-1. Activate your new conda environment, `conda activate fooocus`.
-1. Install the packages required by Fooocus, `pip install -r requirements_versions.txt`.
-1. Launch Fooocus by running `python entry_with_update.py`. (Some Mac M2 users may need `python entry_with_update.py --disable-offload-from-vram` to speed up model loading/unloading.) The first time you run Fooocus, it will automatically download the Stable Diffusion SDXL models and will take a significant amount of time, depending on your internet connection.
-
-Use `python entry_with_update.py --preset anime` or `python entry_with_update.py --preset realistic` for Fooocus Anime/Realistic Edition.
-
 ### Docker
 
 See [docker.md](docker.md)
-
-### Download Previous Version
-
-See the guidelines [here](https://github.com/lllyasviel/Fooocus/discussions/1405).
 
 ## Minimal Requirement
 
@@ -239,9 +130,7 @@ Below is the minimal requirement for running Fooocus locally. If your device cap
 | Windows/Linux     | Nvidia GTX 1XXX              | 8GB (&ast; 6GB uncertain)    | 8GB                       | Required                       | only marginally faster than CPU                                            |
 | Windows/Linux     | Nvidia GTX 9XX               | 8GB                          | 8GB                       | Required                       | faster or slower than CPU                                                  |
 | Windows/Linux     | Nvidia GTX < 9XX             | Not supported                | /                         | /                              | /                                                                          |
-| Windows           | AMD GPU                      | 8GB    (updated 2023 Dec 30) | 8GB                       | Required                       | via DirectML (&ast; ROCm is on hold), about 3x slower than Nvidia RTX 3XXX |
 | Linux             | AMD GPU                      | 8GB                          | 8GB                       | Required                       | via ROCm, about 1.5x slower than Nvidia RTX 3XXX                           |
-| Mac               | M1/M2 MPS                    | Shared                       | Shared                    | Shared                         | about 9x slower than Nvidia RTX 3XXX                                       |
 | Windows/Linux/Mac | only use CPU                 | 0GB                          | 32GB                      | Required                       | about 17x slower than Nvidia RTX 3XXX                                      |
 
 &ast; AMD GPU ROCm (on hold): The AMD is still working on supporting ROCm on Windows.
