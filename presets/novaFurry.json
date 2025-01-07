@@ -45,6 +45,5 @@
         "novaFurryXL.safetensors": "https://civitai.com/api/download/models/1164762?type=Model&format=SafeTensor&size=pruned&fp=fp16&token=8f0aea0979979186cc5e2877272fb27b"
     },
     "embeddings_downloads": {},
-    "lora_downloads": {},
-    "vae_downloads": {}
+    "lora_downloads": {}
 }
